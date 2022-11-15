@@ -1,0 +1,56 @@
+openapi: 3.0.2
+info:
+  description: Experimental description of the Radio Stations SDK.
+  title: Radio Stations SDK
+  version: 1.0.0
+servers:
+- description: local
+  url: http://localhost:8080/
+tags:
+- description: Radio Stations APIs
+  name: Radio Stations
+paths:
+  /stations:
+    get:
+      description: This is a description
+      operationId: getAllRadioStations
+      parameters:
+      - description: The id to consume.
+        explode: true
+        in: query
+        name: id
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RadioStationsListDTO'
+                type: array
+          description: This means ok
+      summary: This is a summary
+      tags:
+      - Stations
+      x-eov-operation-handler: controllers/StationsController
+components:
+  schemas:
+    RadioStationsListDTO:
+      description: This is the radio station model
+      example:
+        name: name
+        url: url
+      properties:
+        name:
+          description: The name of the radio station
+          type: string
+        url:
+          description: The streaming url of the radio station
+          type: string
+      required:
+      - name
+      - url
+      type: object
